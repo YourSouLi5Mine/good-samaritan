@@ -1,6 +1,6 @@
-# Good Samaritan
+# Buen Samaritano
 
-A ruby project to have a vigilanti net on the neighborhood.
+Un proyecto de ruby para tener una red de vigilantes en el vecindario.
 
 ## API
 
@@ -8,21 +8,21 @@ A ruby project to have a vigilanti net on the neighborhood.
 - Laravel 5.7
 - MySQL 8
 
-### Checklist
+### Requerimientos
 
-- [ ] Endpoints (req/res) (documentation)
-- [ ] Signup
-- [ ] Login
-- [ ] Sessions
+- [ ] Endpoints (req/res) (documentacion)
+- [ ] Crear cuenta
+- [ ] Iniciar sesion
+- [ ] Sesiones
 - [ ] JSON Web Tokens
-- [ ] User CRUD (admin, regular)
-- [ ] Groups CRUD (polygons, request access)
-- [ ] Post CRUD (media, location)
-- [ ] Comments CRUD (media, location)
-- [ ] Notifications CRUD
-- [ ] Seeds
-- [ ] Unit Tests
-- [ ] Heroku
+- [ ] Usuario CRUD (administrador, regular)
+- [ ] Grupo CRUD (poligonos, pedir entrar al grupo)
+- [ ] Publicacion CRUD (media, ubicacion de maps)
+- [ ] Comentario CRUD (media, ubicacion de maps)
+- [ ] Notificaciones CRUD
+- [ ] Semillas
+- [ ] Test unitarios
+- [ ] Lanzamiento
 
 ## Front-end
 
@@ -31,16 +31,15 @@ A ruby project to have a vigilanti net on the neighborhood.
 
 ### Checklist
 
-- [ ] Welcome layout
-- [ ] Signup
-- [ ] Login
-- [ ] User profile
-- [ ] User settings
-- [ ] Feed (by groups)
-- [ ] Create group (modal)
-- [ ] Group index
-- [ ] Push notifications
-- [ ] Group feed
+- [ ] Vista de inicio sin loggear
+- [ ] Vista del crear cuenta
+- [ ] Vista del iniciar sesion
+- [ ] Perfil de usuario
+- [ ] Configuracion de usuario
+- [ ] Noticias (new feed)
+- [ ] Noticias por grupos
+- [ ] Crear grupo (modal)
+- [ ] Notificaciones
 
 ## Mobile app
 
@@ -48,13 +47,12 @@ A ruby project to have a vigilanti net on the neighborhood.
 
 ### Checklist
 
-- [ ] Welcome Layout
-- [ ] Signup
-- [ ] Login
-- [ ] User profile
-- [ ] User settings
-- [ ] Feed (by groups)
-- [ ] Create group
-- [ ] Group index
-- [ ] Push notifications
-- [ ] Group feed
+- [ ] Vista de inicio sin loggear
+- [ ] Vista del crear cuenta
+- [ ] Vista del iniciar sesion
+- [ ] Perfil de usuario
+- [ ] Configuracion de usuario
+- [ ] Noticias (new feed)
+- [ ] Noticias por grupos
+- [ ] Crear grupo (modal)
+- [ ] Notificaciones
