@@ -10,17 +10,31 @@ Un proyecto de ruby para tener una red de vigilantes en el vecindario.
 
 ### Requerimientos
 
-- [ ] Endpoints (req/res) (documentacion)
-- [ ] Crear cuenta
-- [ ] Iniciar sesion
-- [ ] Sesiones
-- [ ] JSON Web Tokens
-- [ ] Usuario CRUD (administrador, regular)
-- [ ] Grupo CRUD (poligonos, pedir entrar al grupo)
-- [ ] Publicacion CRUD (media, ubicacion de maps)
-- [ ] Comentario CRUD (media, ubicacion de maps)
-- [ ] Notificaciones CRUD
-- [ ] Semillas
+- [ ] Endpoints [documentacion](https://github.com/mpociot/laravel-apidoc-generator)
+- [ ] [JWT](https://github.com/tymondesigns/jwt-auth)
+- [ ] [Roles](https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5-5-97ab59552d91)
+- [ ] Usuario 
+  - Index | Get | /users
+  - Create | Post | /signup
+  - Update | Put | /users/:id
+  - Delete | Delete | /users/:id
+- [ ] Grupo CRUD
+  - Index | Get | /groups
+  - Create | Post | /groups
+  - Show | Get | /groups/:id
+  - Update | Put | /groups/:id
+  - Delete | Delete | /groups/:id
+- [ ] Publicacion CRUD
+  - Index | Get | /posts
+  - Create | Post | /posts
+  - Update | Put | /posts/:id
+  - Delete | Delete | /posts/:id
+- [ ] UsersGroup CRUD
+  - Index | Get | /users_group
+  - Create | Post | /users_group
+  - Update | Put | /users_group/:id
+  - Delete | Delete | /users_group/:id
+- [ ] Seeds y factories
 - [ ] Test unitarios
 - [ ] Lanzamiento
 
@@ -31,14 +45,11 @@ Un proyecto de ruby para tener una red de vigilantes en el vecindario.
 
 ### Checklist
 
-- [ ] Vista de inicio sin loggear
 - [ ] Vista del crear cuenta
 - [ ] Vista del iniciar sesion
-- [ ] Perfil de usuario
 - [ ] Configuracion de usuario
 - [ ] Noticias (new feed)
 - [ ] Noticias por grupos
-- [ ] Crear grupo (modal)
 - [ ] Notificaciones
 
 ## Mobile app
@@ -47,12 +58,9 @@ Un proyecto de ruby para tener una red de vigilantes en el vecindario.
 
 ### Checklist
 
-- [ ] Vista de inicio sin loggear
 - [ ] Vista del crear cuenta
 - [ ] Vista del iniciar sesion
-- [ ] Perfil de usuario
 - [ ] Configuracion de usuario
 - [ ] Noticias (new feed)
 - [ ] Noticias por grupos
-- [ ] Crear grupo (modal)
 - [ ] Notificaciones
