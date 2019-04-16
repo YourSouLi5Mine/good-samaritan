@@ -22,5 +22,11 @@
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="DB_CONNECTION" value="pgsql"/>
+        <env name="DB_HOST" value="127.0.0.1"/>
+        <env name="DB_PORT" value="5432"/>
+        <env name="DB_DATABASE" value="good-samaritan-test"/>
+        <env name="DB_USERNAME" value="ysim"/>
+        <env name="DB_PASSWORD" value=""/>
     </php>
 </phpunit>
