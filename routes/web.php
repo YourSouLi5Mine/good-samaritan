@@ -16,11 +16,3 @@ $router->group(['prefix'=>'api/v1'], function () use($router) {
   $router->put('/users/{id}', 'UserController@update');
   $router->delete('/users/{id}', 'UserController@delete');
 });
-
-$router->group(['prefix'=>'api/v1'], function () use($router) {
-  $router->get('/products', 'ProductController@index');
-  $router->post('/products', 'ProductController@create');
-  $router->get('/products/{id}', 'ProductController@show');
-  $router->put('/products/{id}', 'ProductController@update');
-  $router->delete('/products/{id}', 'ProductController@delete');
-});
