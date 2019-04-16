@@ -29,7 +29,7 @@ class UserController extends Controller
     return response()->json($user);
   }
 
-  public function update($id) {
+  public function update($id, Request $request) {
     $user = User::find($id);
 
     $user->username = $request->input('username');
@@ -41,10 +41,10 @@ class UserController extends Controller
     return response()->json($user);
   }
 
-  public function destroy($id) {
+  public function delete($id) {
     $user = User::find($id);
 
-    $user->destroy();
+    $user->delete();
 
     return response()->json('User deleted sucessfully');
   }
