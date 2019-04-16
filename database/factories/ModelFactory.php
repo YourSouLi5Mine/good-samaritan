@@ -18,3 +18,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => $faker->password
     ];
 });
+
+$factory->define(App\Group::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company
+    ];
+});
