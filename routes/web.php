@@ -24,3 +24,11 @@ $router->group(['prefix'=>'api/v1'], function () use($router) {
   $router->put('/groups/{id}', 'GroupController@update');
   $router->delete('/groups/{id}', 'GroupController@delete');
 });
+
+$router->group(['prefix'=>'api/v1'], function () use($router) {
+  $router->get('/posts', 'PostController@index');
+  $router->post('/posts', 'PostController@create');
+  $router->get('/posts/{id}', 'PostController@show');
+  $router->put('/posts/{id}', 'PostController@update');
+  $router->delete('/posts/{id}', 'PostController@delete');
+});
