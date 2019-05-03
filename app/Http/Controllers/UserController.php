@@ -12,6 +12,12 @@ class UserController extends Controller
   }
 
   public function create(Request $request) {
+    $this->validate($request, [
+        'username' => 'required',
+        'email'    => 'required|email|unique:users',
+        'password' => 'required',
+    ]);
+
     $user = new User;
 
     $user->username = $request->username;
@@ -30,6 +36,12 @@ class UserController extends Controller
   }
 
   public function update($id, Request $request) {
+    $this->validate($request, [
+        'username' => 'required',
+        'email'    => 'required|email|unique:users',
+        'password' => 'required',
+    ]);
+
     $user = User::find($id);
 
     $user->username = $request->input('username');
