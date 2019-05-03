@@ -60,4 +60,13 @@ class UserController extends Controller
 
     return response()->json('User deleted sucessfully');
   }
+
+  public function login(Request $request) {
+    $user = User::where([
+      'email' => $request->email, 
+      'password' => $request->password
+    ])->get()->first();
+
+    return response()->json($user);
+  }
 }
