@@ -15,7 +15,6 @@ $router->group(['prefix'=>'api/v1'], function () use($router) {
   $router->get('/users/{id}', 'UserController@show');
   $router->put('/users/{id}', 'UserController@update');
   $router->delete('/users/{id}', 'UserController@delete');
-  $router->post('/login', 'UserController@login');
 });
 
 $router->group(['prefix'=>'api/v1'], function () use($router) {
@@ -33,3 +32,17 @@ $router->group(['prefix'=>'api/v1'], function () use($router) {
   $router->put('/posts/{id}', 'PostController@update');
   $router->delete('/posts/{id}', 'PostController@delete');
 });
+
+$router->group(['prefix'=>'api/v1'], function () use($router) {
+  $router->post('/auth/login', 'AuthController@authenticate');
+});
+
+$router->group(
+    ['middleware' => 'jwt.auth'],
+    function() use ($router) {
+        $router->get('/users/all', function() {
+            $users = \App\User::all();
+            return response()->json($users);
+        });
+    }
+);
