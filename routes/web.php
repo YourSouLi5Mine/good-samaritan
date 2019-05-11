@@ -37,12 +37,6 @@ $router->group(['prefix'=>'api/v1'], function () use($router) {
   $router->post('/auth/login', 'AuthController@authenticate');
 });
 
-$router->group(
-    ['middleware' => 'jwt.auth'],
-    function() use ($router) {
-        $router->get('/users/all', function() {
-            $users = \App\User::all();
-            return response()->json($users);
-        });
-    }
-);
+$router->group(['middleware' => 'jwt.auth'], function() use ($router) {
+  $router->get('/users/all', 'UserController@jwt_decoded');
+});
