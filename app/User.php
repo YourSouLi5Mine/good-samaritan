@@ -52,4 +52,12 @@ class User extends Model
         }
         return false;
     }
+
+    public function groups()
+    {
+      return $this
+        ->belongsToMany('App\Group')
+        ->withTimestamps()
+        ->withPivot('owner');
+    }
 }

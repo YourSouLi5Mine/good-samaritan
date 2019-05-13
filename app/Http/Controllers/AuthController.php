@@ -21,7 +21,7 @@ class AuthController extends BaseController
         $payload = [
             'sub' => $user->id,
             'created_at' => time(),
-            'expires_at' => time() + 3600
+            'expires_at' => time() + 345600 //Change to 3600 before deploy
         ];
 
         return JWT::encode($payload, env('JWT_SECRET'));
