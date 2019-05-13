@@ -6,8 +6,7 @@ use Validator;
 use App\User;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
-use Firebase\JWT\ExpiredException;
-use Illuminate\Support\Facades\Hash;
+use Windwalker\Crypt\Password;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class AuthController extends BaseController
@@ -20,10 +19,9 @@ class AuthController extends BaseController
 
     protected function jwt(User $user) {
         $payload = [
-            'iss' => "lumen-jwt",   // Issuer of the token
-            'sub' => $user->id,     // Subject of the token
-            'iat' => time(),        // Time when JWT was issued.
-            'exp' => time() + 60*60 // Expiration time
+            'sub' => $user->id,
+            'created_at' => time(),
+            'expires_at' => time() + 345600 //Change to 3600 before deploy
         ];
 
         return JWT::encode($payload, env('JWT_SECRET'));
@@ -43,14 +41,14 @@ class AuthController extends BaseController
             ], 400);
         }
 
-        // Change line once bcrypt is setup in the client side
-        // if (Hash::check($this->request->input('password'), $user->password)) {
-        if ($this->request->input('password') == $user->password) {
+        $password = new Password(Password::MD5, md5(env('APP_KEY')));
+        $input_password = $this->request->input('password');
+
+        if ($password->verify($input_password, $user->password)) {
             return response()->json([
                 'token' => $this->jwt($user)
             ], 200);
         }
-
         return response()->json([
             'error' => 'Email or password is wrong.'
         ], 400);

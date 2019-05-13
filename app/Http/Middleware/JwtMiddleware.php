@@ -24,17 +24,16 @@ class JwtMiddleware
             $credentials = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
         } catch(ExpiredException $e) {
             return response()->json([
-                'error' => 'Provided token is expired.'
+                'error' => 'Expired token'
             ], 400);
         } catch(Exception $e) {
             return response()->json([
-                'error' => 'An error while decoding token.'
+                'error' => 'Invalid token'
             ], 400);
         }
 
         $user = User::find($credentials->sub);
 
-        // Now let's put the user in the request class so that you can grab it from there
         $request->auth = $user;
 
         return $next($request);
