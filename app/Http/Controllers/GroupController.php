@@ -59,17 +59,17 @@ class GroupController extends Controller
         'error' => "The token provided doesn't belong to any user"
       ]);
     } elseif ($auth->authorizeRoles('user')) {
-      $group = Group::find($id);
-
-      if ($group == null) {
-        return response()->json([
-          'error' => "Group doesn't exist"
-        ], 401);
+      foreach ($auth->groups as $group) {
+        if ($group->id == $id) {
+          return response()->json([
+            'group' => $group
+          ], 200);
+        }
       }
 
       return response()->json([
-        'group' => $group
-      ], 200);
+        'error' => "User don't belong to that group"
+      ], 401);
     } else {
       return response()->json([
         'error' => 'Unauthorized action'
@@ -84,35 +84,15 @@ class GroupController extends Controller
         'error' => "The token provided doesn't belong to any user"
       ]);
     } elseif ($auth->authorizeRoles('user')) {
-      if (sizeOf($auth->groups) == 0) {
-        return response()->json([
-          'error' => 'You have not created or joined any groups yet'
-        ]);
-      } elseif (sizeOf($auth->groups) == 1) {
-        if (($auth->groups[0]->pivot->owner == true) && ($auth->groups[0]->pivot->group_id == $id)) {
-          $updated_group = Group::find($id);
+      foreach ($auth->groups as $group) {
+        if (($group->pivot->owner) && ($group->id == $id)) {
+          $group->name = $request->input('name');
 
-          $updated_group->name = $request->input('name');
-
-          $updated_group->save();
+          $group->save();
 
           return response()->json([
-            'group' => $updated_group
+            'group' => $group
           ], 200);
-        }
-      } else if (sizeOf($auth->groups) > 1) {
-        foreach ($auth->groups as $group) {
-          if (($group->pivot->owner == true) && ($group->pivot->group_id == $id)) {
-            $updated_group = Group::find($id);
-
-            $updated_group->name = $request->input('name');
-
-            $updated_group->save();
-
-            return response()->json([
-              'group' => $updated_group
-            ], 200);
-          }
         }
       }
       return response()->json([
@@ -132,40 +112,17 @@ class GroupController extends Controller
         'error' => "The token provided doesn't belong to any user"
       ]);
     } elseif ($auth->authorizeRoles('user')) {
-      if (sizeOf($auth->groups) == 0) {
-        return response()->json([
-          'error' => 'You have not created or joined any groups yet'
-        ]);
-      } elseif (sizeOf($auth->groups) == 1) {
-        if (($auth->groups[0]->pivot->owner == true) && ($auth->groups[0]->pivot->group_id == $id))
-        {
-          $group = Group::find($id);
-
+      foreach ($auth->groups as $group) {
+        if (($group->pivot->owner) && ($group->id == $id)) {
           $group
               ->users()
-              ->detach($auth);
+              ->detach();
 
           $group->delete();
 
           return response()->json([
             'group' => $group
           ], 200);
-        }
-      } else if (sizeOf($auth->groups) > 1) {
-        foreach ($auth->groups as $group) {
-          if (($group->pivot->owner == true) && ($group->pivot->group_id == $id)) {
-            $group = Group::find($id);
-
-            $group
-              ->users()
-              ->detach($auth);
-
-            $group->delete();
-
-            return response()->json([
-              'group' => $group
-            ], 200);
-          }
         }
       }
       return response()->json([
@@ -193,11 +150,9 @@ class GroupController extends Controller
         ], 401);
       }
 
-      foreach ($group->users as $user) {
-        $group
-          ->users()
-          ->detach($user);
-      }
+      $group
+        ->users()
+        ->detach();
 
       $group->delete();
 

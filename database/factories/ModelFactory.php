@@ -14,12 +14,22 @@ $factory->defineAs('App\User', 'admin', function () {
 });
 
 
-$factory->defineAs('App\User', 'user', function () {
+$factory->defineAs('App\User', 'ysim', function () {
     $password = new Password(Password::MD5, md5(env('APP_KEY')));
     $pass = $password->create(env('USER_PASSWORD'));
     return [
         'username' => 'ysim',
         'email' => 'ysim@gmail.com',
+        'password' => $pass
+    ];
+});
+
+$factory->defineAs('App\User', 'tango', function () {
+    $password = new Password(Password::MD5, md5(env('APP_KEY')));
+    $pass = $password->create(env('USER_PASSWORD'));
+    return [
+        'username' => 'tango',
+        'email' => 'tango@gmail.com',
         'password' => $pass
     ];
 });
