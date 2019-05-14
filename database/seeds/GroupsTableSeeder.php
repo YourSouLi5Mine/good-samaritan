@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 class GroupsTableSeeder extends Seeder
 {
     public function run() {
-      factory(Group::class, 10)->create();
+      $group = factory('App\Group')->create();
+      $group->users()->attach(2, ['owner' => true]);
     }
 }

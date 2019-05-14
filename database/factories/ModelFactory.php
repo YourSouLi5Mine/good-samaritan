@@ -34,7 +34,9 @@ $factory->define('App\Post', function (Faker\Generator $faker) {
     $point = new Point($faker->latitude, $faker->longitude);
     return [
       'location' => \DB::raw("ST_GeomFromText('POINT($point)')"),
-      'contain' => $faker->sentence
+      'contain' => $faker->sentence,
+      'user_id' => 2,
+      'group_id' => 1
     ];
 });
 

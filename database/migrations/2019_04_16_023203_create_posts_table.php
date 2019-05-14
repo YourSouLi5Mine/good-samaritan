@@ -17,6 +17,8 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->point('location')->nullable();
             $table->text('contain');
+            $table->integer('user_id')->unsigned();
+            $table->integer('group_id')->unisgned();
             $table->timestamps();
         });
     }

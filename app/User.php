@@ -21,6 +21,20 @@ class User extends Model
         ->withTimestamps();
     }
 
+    public function groups()
+    {
+      return $this
+        ->belongsToMany('App\Group')
+        ->withTimestamps()
+        ->withPivot('owner');
+    }
+
+    public function posts()
+    {
+      return $this
+        ->hasMany('App\Post');
+    }
+
     public function authorizeRoles($roles)
     {
         if ($this->hasAnyRole($roles)) {
@@ -51,13 +65,5 @@ class User extends Model
             return true;
         }
         return false;
-    }
-
-    public function groups()
-    {
-      return $this
-        ->belongsToMany('App\Group')
-        ->withTimestamps()
-        ->withPivot('owner');
     }
 }
