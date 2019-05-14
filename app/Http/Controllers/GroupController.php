@@ -59,8 +59,16 @@ class GroupController extends Controller
         'error' => "The token provided doesn't belong to any user"
       ]);
     } elseif ($auth->authorizeRoles('user')) {
+      $group = Group::find($id);
+
+      if ($group == null) {
+        return response()->json([
+          'error' => "Group doesn't exist"
+        ], 401);
+      }
+
       return response()->json([
-        'group' => Group::find($id)
+        'group' => $group
       ], 200);
     } else {
       return response()->json([
@@ -106,10 +114,10 @@ class GroupController extends Controller
             ], 200);
           }
         }
-        return response()->json([
-          'error' => 'Group not found or not owner'
-        ]);
       }
+      return response()->json([
+        'error' => 'Group not found or not owner'
+      ]);
     } else {
       return response()->json([
         'error' => 'Unauthorized action'
@@ -132,6 +140,7 @@ class GroupController extends Controller
         if (($auth->groups[0]->pivot->owner == true) && ($auth->groups[0]->pivot->group_id == $id))
         {
           $group = Group::find($id);
+
           $group
               ->users()
               ->detach($auth);
@@ -146,6 +155,7 @@ class GroupController extends Controller
         foreach ($auth->groups as $group) {
           if (($group->pivot->owner == true) && ($group->pivot->group_id == $id)) {
             $group = Group::find($id);
+
             $group
               ->users()
               ->detach($auth);
@@ -157,10 +167,10 @@ class GroupController extends Controller
             ], 200);
           }
         }
-        return response()->json([
-          'error' => 'Group not found or not owner'
-        ]);
       }
+      return response()->json([
+        'error' => 'Group not found or not owner'
+      ]);
     } else {
       return response()->json([
         'error' => 'Unauthorized action'
@@ -177,7 +187,13 @@ class GroupController extends Controller
     } elseif ($auth->authorizeRoles('admin')) {
       $group = Group::find($id);
 
-      foreach ($group->users  as $user) {
+      if ($group == null) {
+        return response()->json([
+          'error' => "Group doesn't exist"
+        ], 401);
+      }
+
+      foreach ($group->users as $user) {
         $group
           ->users()
           ->detach($user);
