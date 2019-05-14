@@ -20,9 +20,8 @@ $router->group(['prefix'=>'api/v1', 'middleware'=>'jwt.auth'], function() use ($
   $router->delete('/admin/groups/{id}', 'GroupController@delete_group');
 
 
-  $router->get('/posts', 'PostController@index');
-  $router->post('/posts', 'PostController@create');
-  $router->get('/posts/{id}', 'PostController@show'); //Probably not needed
-  $router->put('/posts/{id}', 'PostController@update');
-  $router->delete('/posts/{id}', 'PostController@delete');
+  $router->get('/groups/{group_id}/posts', 'PostController@index');
+  $router->post('groups/{group_id}/posts', 'PostController@create');
+  $router->put('/posts/{post_id}', 'PostController@update');
+  $router->delete('/posts/{post_id}', 'PostController@delete');
 });

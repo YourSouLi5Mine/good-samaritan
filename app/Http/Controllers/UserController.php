@@ -103,6 +103,11 @@ class UserController extends Controller {
 
   public function delete_myself(Request $request) {
     $auth = $request->auth;
+    if ($auth->authorizeRoles('admin')) {
+      return response()->json([
+        'error' => "Can't delete an admin"
+      ], 401);
+    }
     if ($auth == null) {
       return response()->json([
         'error' => "The token provided doesn't belong to any user"

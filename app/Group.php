@@ -22,4 +22,10 @@ class Group extends Model
         ->withTimestamps()
         ->withPivot('owner');
     }
+
+    public function posts()
+    {
+      return $this
+        ->hasMany('App\Post');
+    }
 }

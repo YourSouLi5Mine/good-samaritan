@@ -14,7 +14,10 @@ class UsersTableSeeder extends Seeder
     $admin_user->roles()->save($admin_role);
     $admin_user->roles()->save($user_role);
 
-    $user = factory('App\User', 'user')->create();
+    $user = factory('App\User', 'ysim')->create();
     $user->roles()->save($user_role);
+
+    $tango = factory('App\User', 'tango')->create();
+    $tango->roles()->save($user_role);
   }
 }
