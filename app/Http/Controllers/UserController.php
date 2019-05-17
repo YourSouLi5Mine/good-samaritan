@@ -13,7 +13,7 @@ class UserController extends Controller {
     if ($auth == null) {
       return response()->json([
         'error' => "The token provided doesn't belong to any user"
-      ]);
+      ], 400);
     } elseif ($auth->authorizeRoles('user')) {
       return response()->json([
         'users' => User::all() 
@@ -47,7 +47,9 @@ class UserController extends Controller {
       ->roles()
       ->attach(Role::where('name', 'user')->first());
 
-    return response()->json($user);
+    return response()->json([
+      'user' => $user
+    ], 201);
   }
 
   public function show(Request $request, $id) {
@@ -55,7 +57,7 @@ class UserController extends Controller {
     if ($auth == null) {
       return response()->json([
         'error' => "The token provided doesn't belong to any user"
-      ]);
+      ], 400);
     } elseif ($auth->authorizeRoles('user')) {
       return response()->json([
         'user' => User::find($id)
@@ -72,7 +74,7 @@ class UserController extends Controller {
     if ($auth == null) {
       return response()->json([
         'error' => "The token provided doesn't belong to any user"
-      ]);
+      ], 400);
     } elseif ($auth->authorizeRoles('user')) {
       $this->validate($request, [
           'username' => 'required',
@@ -106,12 +108,12 @@ class UserController extends Controller {
     if ($auth->authorizeRoles('admin')) {
       return response()->json([
         'error' => "Can't delete an admin"
-      ], 401);
+      ], 400);
     }
     if ($auth == null) {
       return response()->json([
         'error' => "The token provided doesn't belong to any user"
-      ]);
+      ], 400);
     } elseif ($auth->authorizeRoles('user')) {
       $user = User::find($request->auth->id);
 
@@ -132,7 +134,7 @@ class UserController extends Controller {
     if ($auth == null) {
       return response()->json([
         'error' => "The token provided doesn't belong to any user"
-      ]);
+      ], 400);
     } elseif ($auth->authorizeRoles('admin')) {
       $user = User::find($id);
 
