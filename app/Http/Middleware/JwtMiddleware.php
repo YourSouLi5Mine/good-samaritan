@@ -17,7 +17,7 @@ class JwtMiddleware
         if(!$token) {
             return response()->json([
                 'error' => 'Token not provided.'
-            ], 401);
+            ], 400);
         }
 
         try {
