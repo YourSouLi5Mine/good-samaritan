@@ -8,6 +8,7 @@ $router->group(['prefix'=>'api/v1'], function() use($router) {
 $router->group(['prefix'=>'api/v1', 'middleware'=>'jwt.auth'], function() use ($router) {
   $router->get('/users', 'UserController@index');
   $router->get('/users/{id}', 'UserController@show');
+  $router->get('/users/edit', 'UserController@show_myself');
   $router->put('/users', 'UserController@update');
   $router->delete('/users', 'UserController@delete_myself');
   $router->delete('/admin/users/{id}', 'UserController@delete_other');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use Firebase\JWT\JWT;
 use Windwalker\Crypt\Password;
 use Illuminate\Http\Request;
 
@@ -69,6 +70,26 @@ class UserController extends Controller {
     }
   }
 
+  public function show_myself(Request $request) {
+    $auth = $request->auth;
+    if ($auth == null) {
+      return response()->json([
+        'error' => "The token provided doesn't belong to any user"
+      ], 400);
+    } elseif ($auth->authorizeRoles('user')) {
+      $jwt = explode('=', $request->getQueryString());
+      $decoded = JWT::decode($jwt[1], env('JWT_SECRET'), array('HS256'));
+
+      return response()->json([
+        'user' => User::find($decoded->sub)
+      ], 200);
+    } else {
+      return response()->json([
+        'error' => 'Unauthorized action'
+      ], 401);
+    }
+  }
+
   public function update(Request $request) {
     $auth = $request->auth;
     if ($auth == null) {
@@ -78,7 +99,7 @@ class UserController extends Controller {
     } elseif ($auth->authorizeRoles('user')) {
       $this->validate($request, [
           'username' => 'required',
-          'email'    => 'required|email|unique:users',
+          'email'    => 'required|email|unique:users,email,' .$request->auth->id,
           'password' => 'required',
       ]);
 
