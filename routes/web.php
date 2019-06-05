@@ -8,7 +8,7 @@ $router->group(['prefix'=>'api/v1'], function() use($router) {
 $router->group(['prefix'=>'api/v1', 'middleware'=>'jwt.auth'], function() use ($router) {
   $router->get('/users', 'UserController@index');
   $router->get('/users/{id}', 'UserController@show');
-  $router->get('/users/edit', 'UserController@show_myself');
+  $router->get('/user/edit', 'UserController@show_myself');
   $router->put('/users', 'UserController@update');
   $router->delete('/users', 'UserController@delete_myself');
   $router->delete('/admin/users/{id}', 'UserController@delete_other');
@@ -20,9 +20,10 @@ $router->group(['prefix'=>'api/v1', 'middleware'=>'jwt.auth'], function() use ($
   $router->delete('/groups/{id}', 'GroupController@delete_my_group');
   $router->delete('/admin/groups/{id}', 'GroupController@delete_group');
 
-
   $router->get('/groups/{group_id}/posts', 'PostController@index');
   $router->post('groups/{group_id}/posts', 'PostController@create');
   $router->put('/posts/{post_id}', 'PostController@update');
   $router->delete('/posts/{post_id}', 'PostController@delete');
+
+  $router->get('/totals', 'TotalController@totals');
 });
