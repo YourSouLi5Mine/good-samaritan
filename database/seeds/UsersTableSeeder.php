@@ -19,5 +19,8 @@ class UsersTableSeeder extends Seeder
 
     $tango = factory('App\User', 'tango')->create();
     $tango->roles()->save($user_role);
+
+    $tec = factory('App\User', 'tec')->create();
+    $tec->roles()->save($user_role);
   }
 }

@@ -34,6 +34,16 @@ $factory->defineAs('App\User', 'tango', function () {
     ];
 });
 
+$factory->defineAs('App\User', 'tec', function () {
+    $password = new Password(Password::MD5, md5(env('APP_KEY')));
+    $pass = $password->create(env('USER_PASSWORD'));
+    return [
+        'username' => 'tec',
+        'email' => 'tec@gmail.com',
+        'password' => $pass
+    ];
+});
+
 $factory->define('App\Group', function (Faker\Generator $faker) {
     return [
         'name' => $faker->company
