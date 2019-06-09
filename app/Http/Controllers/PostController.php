@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Group;
 use Illuminate\Http\Request;
+use App\Events\BroadcastEvent;
 
 class PostController extends Controller
 {
@@ -32,21 +33,27 @@ class PostController extends Controller
         'error' => "The token provided doesn't belong to any user"
       ]);
     } elseif ($auth->authorizeRoles('user')) {
-      $post = new Post;
+      foreach ($auth->groups as $group) {
+        if ($group->id == $group_id) {
+          $post = new Post;
 
-      if ($request->location) {
-        $post->location = $request->location;
+          if ($request->location) {
+            $post->location = $request->location;
+          }
+
+          $post->contain  = $request->contain;
+          $post->group_id = $group_id;
+          $post->user_id  = $auth->id;
+
+          $post->save();
+
+          \Event::dispatch(new BroadcastEvent($post));
+
+          return response()->json([
+            'post' => $post
+          ], 200);
+        }
       }
-
-      $post->contain  = $request->contain;
-      $post->group_id = $group_id;
-      $post->user_id  = $auth->id;
-
-      $post->save();
-
-      return response()->json([
-        'post' => $post
-      ], 200);
     } else {
       return response()->json([
         'error' => 'Unauthorized action'
